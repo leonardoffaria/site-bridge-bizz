@@ -35,7 +35,7 @@
       }
     });
     // Ao voltar para desktop, o menu não pode ficar preso fechado
-    matchMedia('(min-width: 48em)').addEventListener('change', function (e) {
+    matchMedia('(min-width: 64em)').addEventListener('change', function (e) {
       if (e.matches) setOpen(false);
     });
   }

@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact — Bridge Bizz</title>
-<meta name="description" content="Fale com a Bridge Bizz sobre posicionamento, marca e comunicação.">
+<title>Contato | Bridge Bizz Hub</title>
+<meta name="description" content="Tem uma marca, negócio ou ideia pronta para crescer? Comece seu diagnóstico com a Bridge Bizz Hub.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="assets/logo/icon-dark.svg">
 <link rel="preload" href="assets/fonts/geist-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Contact — Bridge Bizz">
-<meta property="og:description" content="Fale com a Bridge Bizz sobre posicionamento, marca e comunicação.">
+<meta property="og:title" content="Contato | Bridge Bizz Hub">
+<meta property="og:description" content="Tem uma marca, negócio ou ideia pronta para crescer? Comece seu diagnóstico com a Bridge Bizz Hub.">
 <meta property="og:image" content="assets/img/hero.webp">
 </head>
 <body>
@@ -20,7 +20,7 @@
 <!-- ========== SHARED: header — replicar em todas as páginas ========== -->
 <header class="header surface-light">
   <div class="wrap header__inner">
-    <a class="header__logo" href="index.html" aria-label="Bridge Bizz — página inicial"
+    <a class="header__logo" href="index.html" aria-label="Bridge Bizz Hub — página inicial"
        style="display:flex;align-items:center;gap:.625rem">
       <img src="assets/logo/icon-dark.svg" alt="" style="height:clamp(20px,2.2vw,26px)">
       <img src="assets/logo/wordmark-inline-dark.svg" alt="Bridge Bizz" style="height:clamp(9px,1vw,12px)">
@@ -29,25 +29,25 @@
       <span></span><span></span><span></span>
     </button>
     <nav class="nav" id="nav" aria-label="Principal">
-      <a href="about.html">About</a>
-      <a href="manifesto.html">Manifesto</a>
-      <a href="work.html">Work</a>
-      <a href="thinking.html">Thinking</a>
-      <a href="contact.html" aria-current="page">Contact</a>
-      <span class="nav__dot" aria-hidden="true"></span>
+      <a href="index.html">Home</a>
+      <a href="about.html">Quem Somos</a>
+      <a href="metodologia.html">Metodologia e Serviços</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html" aria-current="page">Contato</a>
+      <a class="btn btn--nav" href="#diagnostico">Começar diagnóstico</a>
     </nav>
   </div>
 </header>
 <!-- ========== /SHARED: header ========== -->
 
 <main id="main">
-  <section class="section surface-light" aria-labelledby="ct-title">
+  <section class="section surface-light" id="diagnostico" aria-labelledby="ct-title">
     <div class="wrap">
-      <p class="idx" data-reveal>Contact</p>
-      <h1 class="display" id="ct-title" data-reveal>Let's Build<br>Something <em>Clear.</em></h1>
-      <p class="lead indent" data-reveal style="margin-top:clamp(1.5rem,3vw,2.5rem);max-width:44ch">
-        Conte o contexto do seu negócio e o que você quer alcançar.
-        Respondemos em até dois dias úteis.
+      <p class="idx" data-reveal>Contato</p>
+      <h1 class="display" id="ct-title" data-reveal>Vamos construir<br>a sua <em>ponte.</em></h1>
+      <p class="lead indent" data-reveal style="margin-top:clamp(1.5rem,3vw,2.5rem);max-width:48ch">
+        Tem uma marca, negócio ou ideia pronta para crescer? Fale com a gente e vamos
+        juntos construir uma estratégia de marca com direção, consistência, valor e resultado!
       </p>
     </div>
   </section>
@@ -59,10 +59,10 @@
       <div class="cols cols--2" style="gap:clamp(2.5rem,6vw,5rem);align-items:start">
 
         <!-- PREENCHER: definir o endpoint do formulário (Formspree, Basin, Vercel Function…).
-             Enquanto não houver endpoint, os contatos diretos ao lado seguem funcionando. -->
-        <form class="form" action="#" method="post" data-reveal novalidate>
+             Sem `action`, o envio não sai do navegador. -->
+        <form class="form" method="post" data-reveal>
           <p class="field">
-            <label for="f-nome">Nome</label>
+            <label for="f-nome">Nome completo</label>
             <input id="f-nome" name="nome" type="text" autocomplete="name" required>
           </p>
           <p class="field">
@@ -70,36 +70,37 @@
             <input id="f-email" name="email" type="email" autocomplete="email" required>
           </p>
           <p class="field">
-            <label for="f-empresa">Empresa <span class="muted">(opcional)</span></label>
-            <input id="f-empresa" name="empresa" type="text" autocomplete="organization">
+            <label for="f-contato">Contato principal</label>
+            <input id="f-contato" name="contato" type="tel" autocomplete="tel" required>
           </p>
           <p class="field">
-            <label for="f-msg">Sobre o projeto</label>
-            <textarea id="f-msg" name="mensagem" rows="5" required></textarea>
+            <label for="f-empresa">Nome da empresa ou marca</label>
+            <input id="f-empresa" name="empresa" type="text" autocomplete="organization" required>
           </p>
-          <button class="btn" type="submit">Enviar mensagem</button>
+          <p class="field">
+            <label for="f-site">Site ou Instagram da marca <span class="muted">(se já tiver)</span></label>
+            <input id="f-site" name="site" type="text" autocomplete="url">
+          </p>
+          <p class="field">
+            <label for="f-cargo">Qual é o seu cargo ou papel no negócio?</label>
+            <input id="f-cargo" name="cargo" type="text" autocomplete="organization-title" required>
+          </p>
+          <button class="btn" type="submit">Enviar</button>
         </form>
 
+        <!-- PREENCHER: e-mail, telefone e URLs das redes — não vieram no documento de copy. -->
         <div class="footer__col" style="gap:2rem" data-reveal>
-          <div>
-            <p class="label label--muted" style="margin-bottom:.625rem">E-mail</p>
-            <!-- PREENCHER -->
-            <a class="link" href="mailto:hello@bridgebizz.com"><span>hello@bridgebizz.com</span></a>
-          </div>
-          <div>
-            <p class="label label--muted" style="margin-bottom:.625rem">Telefone</p>
-            <!-- PREENCHER -->
-            <a class="link" href="tel:+5511999999999"><span>+55 11 99999-9999</span></a>
-          </div>
           <div>
             <p class="label label--muted" style="margin-bottom:.625rem">Base</p>
             <p>São Paulo, Brasil</p>
           </div>
           <div>
-            <p class="label label--muted" style="margin-bottom:.625rem">Social</p>
-            <!-- PREENCHER -->
-            <a class="link" href="https://www.linkedin.com/" rel="noopener"><span>LinkedIn</span></a><br>
-            <a class="link" href="https://www.instagram.com/" rel="noopener"><span>Instagram</span></a>
+            <p class="label label--muted" style="margin-bottom:.625rem">Resposta</p>
+            <p class="muted">Retornamos em até dois dias úteis.</p>
+          </div>
+          <div>
+            <p class="label label--muted" style="margin-bottom:.625rem">Para parceiros</p>
+            <p class="muted" style="max-width:34ch">Se você é profissional, especialista ou agência, use o mesmo formulário indicando seu papel no campo de cargo.</p>
           </div>
         </div>
 
@@ -114,30 +115,24 @@
     <div class="footer__top">
       <div class="footer__brand">
         <img src="assets/logo/lockup-light.svg" alt="Bridge Bizz">
-        <p class="small muted" style="max-width:26ch">Creative strategy and communication for brands that want to go further.</p>
+        <p class="small muted" style="max-width:34ch">Consultoria de branding, posicionamento de marca e comunicação estratégica para negócios que querem crescer com clareza, consistência e valor.</p>
       </div>
-      <nav class="footer__col" aria-label="Rodapé">
-        <a href="about.html">About</a>
-        <a href="manifesto.html">Manifesto</a>
-        <a href="work.html">Work</a>
-        <a href="thinking.html">Thinking</a>
-        <a href="contact.html">Contact</a>
+      <nav class="footer__col footer__col--nav" aria-label="Rodapé">
+        <a href="index.html">Home</a>
+        <a href="about.html">Quem Somos</a>
+        <a href="metodologia.html">Metodologia e Serviços</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contato</a>
       </nav>
-      <!-- PREENCHER: confirmar e-mail e telefone reais com a cliente -->
+      <!-- PREENCHER: e-mail, telefone e URLs das redes — não vieram no documento de copy. -->
       <div class="footer__col">
-        <a href="mailto:hello@bridgebizz.com">hello@bridgebizz.com</a>
-        <a href="tel:+5511999999999">+55 11 99999-9999</a>
+        <a class="link link--label" href="contact.html"><span>Começar diagnóstico</span><span class="arrow" aria-hidden="true">&#8594;</span></a>
         <p class="small muted">São Paulo, Brasil</p>
-      </div>
-      <!-- PREENCHER: URLs reais das redes -->
-      <div class="footer__col">
-        <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
-        <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
       </div>
     </div>
     <div class="footer__bottom">
-      <p class="label label--muted">Bridge Bizz &copy; 2026</p>
-      <p class="label label--muted">Creative doesn't need complexity</p>
+      <p class="label label--muted">Bridge Bizz Hub &copy; 2026</p>
+      <p class="label label--muted">Creativity doesn’t need complexity</p>
     </div>
   </div>
 </footer>

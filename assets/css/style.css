@@ -250,6 +250,10 @@ body {
 @media (hover: hover) and (pointer: fine) {
   .btn:hover { background: var(--fg); color: var(--bg); }
 }
+/* Variante compacta — CTA fixo do header.
+   Seletor com `.nav a` na frente para vencer os estilos de link do menu. */
+.nav a.btn--nav { padding: .625rem 1rem; }
+.nav a.btn--nav::after { display: none; }
 
 /* ================================================================ header */
 .header {
@@ -289,12 +293,6 @@ body {
 .nav a[aria-current='page']::after { clip-path: inset(0 0 0 0); }
 @media (hover: hover) and (pointer: fine) { .nav a:hover::after { clip-path: inset(0 0 0 0); } }
 
-.nav__dot {
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--bb-orange);
-  flex: none;
-}
-
 /* Toggle mobile */
 .nav-toggle { display: none; border: 0; background: transparent; padding: .5rem; cursor: pointer; }
 .nav-toggle span {
@@ -309,10 +307,12 @@ body {
 /* ================================================================== hero */
 /* A mídia sangra até a borda direita da viewport (fora do .wrap) e é cortada
    na diagonal, reproduzindo o corte do print de referência.                 */
+/* min-height (e não height): o hero cresce se o texto de apoio for longo. */
 .hero {
   position: relative;
   overflow: clip;
-  height: clamp(440px, 47vw, 677px);   /* 677px a 1440 (ref) */
+  min-height: clamp(440px, 47vw, 677px);   /* 677px a 1440 (ref) */
+  display: flex;
 }
 .hero__media {
   position: absolute; inset: 0;
@@ -325,10 +325,11 @@ body {
   width: 100%; height: 100%;
   object-fit: cover; object-position: 50% 26%;
 }
-.hero > .wrap { position: relative; z-index: 2; height: 100%; }
+.hero > .wrap { position: relative; z-index: 2; display: flex; flex: 1; }
 .hero__text {
-  height: 100%;
+  flex: 1;
   display: flex; flex-direction: column; justify-content: space-between;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   padding-block: clamp(2rem, 5vw, 4rem) clamp(1.75rem, 3vw, 2.5rem);
   max-width: min(100%, 46ch);
 }
@@ -359,6 +360,21 @@ body {
 .pillar__n { font-size: var(--fs-label); letter-spacing: .1em; color: var(--fg-muted); }
 .pillar__body { color: var(--fg-muted); font-size: var(--fs-sm); line-height: 1.65; flex: 1; }
 .pillar .arrow { color: var(--accent-ink); font-size: 1.25rem; line-height: 1; }
+
+/* Passos numerados da metodologia — lista vertical com filete entre etapas */
+.steps > li {
+  display: grid; gap: .5rem;
+  padding-block: clamp(1.25rem, 2.4vw, 1.75rem);
+  border-top: 1px solid var(--rule);
+}
+.steps > li:last-child { border-bottom: 1px solid var(--rule); }
+@media (min-width: 48em) {
+  .steps > li {
+    grid-template-columns: 3.5rem minmax(0, 16rem) minmax(0, 1fr);
+    gap: var(--gap);
+    align-items: baseline;
+  }
+}
 
 /* Cabeçalho de seção: título à esquerda, ação à direita */
 .sec-head {
@@ -433,6 +449,39 @@ body {
   padding-top: 1rem; border-top: 1px solid var(--rule);
 }
 
+/* ================================================================= form */
+.form { display: grid; gap: clamp(1rem, 1.8vw, 1.375rem); }
+.field { display: grid; gap: .5rem; }
+.field label {
+  font-size: var(--fs-label); font-weight: 500;
+  letter-spacing: var(--tr-label); text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.field input, .field textarea {
+  width: 100%;
+  background: transparent;
+  border: 0; border-bottom: 1px solid var(--rule);
+  border-radius: 0;                       /* iOS arredonda inputs por padrão */
+  padding: .625rem 0;
+  color: var(--fg);
+  transition: border-color var(--dur) ease;
+}
+.field textarea { resize: vertical; }
+/* Sem mexer no outline: o :focus-visible global continua valendo. */
+.field input:focus, .field textarea:focus { border-bottom-color: var(--accent); }
+@media (hover: hover) and (pointer: fine) {
+  .field input:hover, .field textarea:hover { border-bottom-color: var(--fg-muted); }
+}
+/* O Chrome pinta o fundo do autofill de branco — sobre a faixa bordô isso quebra. */
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--fg);
+  box-shadow: 0 0 0 1000px var(--bg) inset;
+  caret-color: var(--fg);
+}
+.form .btn { justify-self: start; margin-top: .5rem; }
+
 /* Marcador de conteúdo pendente do cliente */
 .todo {
   display: inline-block;
@@ -461,7 +510,9 @@ body {
   .indent { margin-left: clamp(0px, 14vw, 12rem); }
 }
 
-@media (max-width: 47.99em) {
+/* O menu vira hambúrguer antes do resto do layout: 5 itens + CTA não cabem
+   na horizontal abaixo de ~1024px. */
+@media (max-width: 63.99em) {
   .nav-toggle { display: block; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0;
@@ -476,13 +527,21 @@ body {
   .nav[data-open='true'] { clip-path: inset(0 0 0 0); }
   .nav a { width: 100%; padding-block: .875rem; font-size: var(--fs-sm); letter-spacing: .12em; border-bottom: 1px solid rgba(35,35,35,.1); }
   .nav a::after { display: none; }
-  .nav__dot { display: none; }
+  .nav a.btn--nav {
+    border: 1px solid currentColor;
+    justify-content: center;
+    margin-top: 1.25rem;
+    padding: .9375rem 1.5rem;
+    font-size: var(--fs-label); letter-spacing: var(--tr-label);
+  }
+}
 
+@media (max-width: 47.99em) {
   .display--statement { text-wrap: balance; }
-  .hero { height: auto; display: flex; flex-direction: column-reverse; }
+  .hero { min-height: 0; flex-direction: column-reverse; }
   .hero__media { position: static; clip-path: none; aspect-ratio: 16 / 10; }
-  .hero > .wrap { height: auto; }
-  .hero__text { height: auto; gap: 2rem; padding-block: 2.5rem 2.75rem; }
+  .hero > .wrap { display: block; flex: none; }
+  .hero__text { gap: 2rem; padding-block: 2.5rem 2.75rem; }
   .hero__scroll { display: none; }
 
   .footer__top { grid-template-columns: 1fr; }
