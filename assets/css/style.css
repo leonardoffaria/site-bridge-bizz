@@ -54,7 +54,9 @@ ul, ol { list-style: none; padding: 0; }
   /* Escala calibrada contra o print de referência (medida de caixa de tinta,
      erro < 5%). A hierarquia da ref é deliberadamente MUITO contrastada:
      uma única declaração gigante (seção 01) e todo o resto pequeno.        */
-  --fs-statement: clamp(2.5rem, 12.4vw, 11.15rem);    /* 40 → 178px  seção 01 */
+  /* Recalibrado para caixa-alta: a 12.4vw / 178px o statement em nowrap
+     media 1567px de tinta e estourava a viewport em 1440. */
+  --fs-statement: clamp(2.5rem, 10vw, 9rem);          /* 40 → 144px  seção 01 */
   --fs-hero:      clamp(2.25rem, 6.39vw, 5.75rem);    /* 36 →  92px  h1 */
   --fs-cta:       clamp(2rem, 4.31vw, 3.875rem);      /* 32 →  62px  CTA */
   --fs-display:   clamp(1.75rem, 3.47vw, 3.125rem);   /* 28 →  50px  seções 02/03 */
@@ -71,6 +73,11 @@ ul, ol { list-style: none; padding: 0; }
   --tr-display: -0.035em;
   --tr-hero:    -0.03em;
   --tr-label:    0.16em;
+
+  /* Raio — medido nos mockups da cliente: mídia arredondada, botão pílula,
+     card de serviço quadrado (o card NÃO é arredondado, ao contrário do resto). */
+  --radius-media: 14px;
+  --radius-pill:  999px;
 
   /* Layout */
   --maxw:      1440px;
@@ -172,11 +179,15 @@ body {
 }
 
 /* Títulos */
+/* Caixa-alta é a decisão de título do mockup da cliente. O tracking negativo
+   cai de -0.035em para -0.012em: caixa-alta não tem ascendente/descendente para
+   compensar e a -0.035em as letras se tocam. */
 .display {
   font-size: var(--fs-display);
   font-weight: 400;
-  line-height: var(--lh-display);
-  letter-spacing: var(--tr-display);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  text-transform: uppercase;
   text-wrap: balance;
 }
 .display--statement { font-size: var(--fs-statement); text-wrap: nowrap; }
@@ -236,29 +247,36 @@ body {
 /* Variante do link em caixa-alta (usar junto com .link) */
 .link--label { font-size: var(--fs-label); font-weight: 500; letter-spacing: var(--tr-label); text-transform: uppercase; }
 
-/* Botão ghost com borda (raio 0 — regra do reference lock) */
+/* Botão pílula sólido — mockup da cliente. Em superfície clara é bordô com
+   texto claro (9,6:1); em faixa escura ou bordô é laranja com texto escuro
+   (6,1:1), que é como o mockup usa o CTA de parceiros. */
 .btn {
   display: inline-flex; align-items: center; gap: .75rem;
-  padding: 1rem 1.5rem;
-  border: 1px solid currentColor;
-  background: transparent;
-  font-size: var(--fs-label);
+  padding: .75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--bb-purple);
+  color: var(--bb-white);
+  font-size: var(--fs-sm);
   font-weight: 500;
-  letter-spacing: var(--tr-label);
-  text-transform: uppercase;
+  letter-spacing: 0;
   text-decoration: none;
   cursor: pointer;
   transition: transform var(--dur-fast) var(--ease-out),
               background-color var(--dur) ease,
               color var(--dur) ease;
 }
+.btn .arrow { color: currentColor; }
+.surface-dark .btn, .surface-purple .btn { background: var(--bb-orange); color: var(--bb-dark); }
 .btn:active { transform: scale(0.97); }
 @media (hover: hover) and (pointer: fine) {
-  .btn:hover { background: var(--fg); color: var(--bg); }
+  .btn:hover                { background: var(--bb-dark); color: var(--bb-white); }
+  .surface-dark .btn:hover,
+  .surface-purple .btn:hover { background: var(--bb-white); color: var(--bb-dark); }
 }
 /* Variante compacta — CTA fixo do header.
    Seletor com `.nav a` na frente para vencer os estilos de link do menu. */
-.nav a.btn--nav { padding: .625rem 1rem; }
+.nav a.btn--nav { padding: .5rem 1rem; font-size: var(--fs-sm); letter-spacing: 0; text-transform: none; }
 .nav a.btn--nav::after { display: none; }
 
 /* ================================================================ header */
@@ -367,21 +385,91 @@ body {
 .pillar__body { color: var(--fg-muted); font-size: var(--fs-sm); line-height: 1.65; flex: 1; }
 .pillar .arrow { color: var(--accent-ink); font-size: 1.25rem; line-height: 1; }
 
-/* Passos numerados da metodologia — lista vertical com filete entre etapas */
+/* Passos numerados da metodologia — lista vertical com filete entre etapas.
+   O glifo é o do mockup: quadrado bordô com um círculo crescente vazado, um
+   por etapa — o quanto do círculo já foi aberto codifica o avanço. */
 .steps > li {
   display: grid; gap: .5rem;
   padding-block: clamp(1.25rem, 2.4vw, 1.75rem);
   border-top: 1px solid var(--rule);
 }
 .steps > li:last-child { border-bottom: 1px solid var(--rule); }
+.steps > li::before {
+  content: '';
+  width: clamp(2.75rem, 4.2vw, 3.75rem); aspect-ratio: 1;
+  align-self: start;
+  /* closest-side: por padrão o gradiente mede até o CANTO, então 78% já era
+     um círculo maior que o quadrado e sobravam só lascas nas quinas.
+     Com closest-side, 100% = círculo inscrito e a escala vira legível. */
+  background: radial-gradient(circle closest-side at 50% 50%, var(--bg) var(--fill), var(--bb-purple) var(--fill));
+}
+.steps > li:nth-child(1) { --fill: 40%; }
+.steps > li:nth-child(2) { --fill: 52%; }
+.steps > li:nth-child(3) { --fill: 64%; }
+.steps > li:nth-child(4) { --fill: 76%; }
+.steps > li:nth-child(5) { --fill: 88%; }
+.steps .pillar__n { color: var(--accent-ink); }
+.steps .h3 { color: var(--bb-purple); }
+.surface-dark .steps .h3 { color: var(--accent); }
 @media (min-width: 48em) {
+  /* Glifo · número · [título sobre descrição] — como no mockup. Com título e
+     descrição em colunas separadas sobrava um vão de 200px entre os dois. */
   .steps > li {
-    /* 3ª coluna travada em 32rem: solta em 1fr a linha passava de 130 caracteres */
-    grid-template-columns: 3.5rem minmax(0, 16rem) minmax(0, 32rem);
-    gap: var(--gap);
+    /* max-content e não auto: track auto absorve o espaço livre do grid e
+       abria um vão de 475px entre o glifo e o número. */
+    grid-template-columns: max-content 2.5rem minmax(0, 46rem);
+    gap: .5rem var(--gap);
     align-items: baseline;
   }
+  .steps > li::before  { grid-row: 1 / span 2; align-self: center; }
+  .steps > li > :nth-child(1) { grid-row: 1 / span 2; }   /* número */
+  .steps > li > :nth-child(3) { grid-column: 3; }         /* descrição */
 }
+/* No mobile o glifo empilharia sobre o número e roubaria uma linha inteira. */
+@media (max-width: 47.99em) { .steps > li::before { display: none; } }
+
+/* Card de serviço — quadrado (medido no mockup), borda e título em laranja.
+   Sobre a faixa escura o laranja dá 6,14:1, então passa em borda e em texto. */
+.card {
+  display: flex; flex-direction: column; gap: .75rem;
+  padding: clamp(1.25rem, 2.2vw, 1.75rem);
+  border: 1px solid var(--accent);
+}
+.card .h3 { color: var(--accent); }
+.card__body { color: var(--fg-muted); font-size: var(--fs-sm); line-height: 1.6; }
+
+/* Linha do tempo das três distâncias ("Por que Bridge?") */
+.timeline { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; text-align: center; }
+.timeline > li { position: relative; padding: 2.5rem clamp(.5rem, 1.5vw, 1.25rem) 0; }
+.timeline > li::before {
+  content: ''; position: absolute; left: 0; right: 0; top: .5625rem;
+  border-top: 1px solid var(--accent);
+}
+.timeline > li::after {
+  content: ''; position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--accent);
+}
+.timeline > li:first-child::before { left: 50%; }
+.timeline > li:last-child::before  { right: 50%; }
+@media (max-width: 47.99em) {
+  .timeline { grid-auto-flow: row; text-align: left; }
+  .timeline > li { padding: 0 0 0 2.25rem; min-height: 2.5rem; display: flex; align-items: center; }
+  .timeline > li::before { left: .5625rem; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1px solid var(--accent); }
+  .timeline > li:first-child::before { top: 50%; left: .5625rem; }
+  .timeline > li:last-child::before  { bottom: 50%; right: auto; }
+  .timeline > li::after { left: 0; top: 50%; transform: translateY(-50%); width: 1.125rem; height: 1.125rem; }
+}
+
+/* Grifo — o realce de marca-texto que o mockup usa nas frases de impacto */
+.mark {
+  background: var(--orange-20); color: var(--bb-dark);
+  padding: .1em .35em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+
+/* Mídia de conteúdo arredondada (mockup). Fora: logo, hero de sangria e a
+   faixa full-bleed — canto arredondado em elemento que sangra deixa o fundo
+   aparecendo nos cantos. */
+.section img { border-radius: var(--radius-media); }
 
 /* Cabeçalho de seção: título à esquerda, ação à direita */
 .sec-head {
