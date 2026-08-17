@@ -97,7 +97,9 @@ ul, ol { list-style: none; padding: 0; }
 /* ------------------------------------------------------------ surfaces -- */
 /* Um único set de componentes; a superfície só troca as variáveis.          */
 .surface-light  { --bg: var(--bb-white);  --fg: var(--bb-dark);  --fg-muted: #6B6764; --rule: rgba(35,35,35,.14);  --accent: var(--bb-orange); --accent-ink: var(--orange-ink); --focus: var(--bb-purple); }
-.surface-paper  { --bg: var(--paper);     --fg: var(--bb-dark);  --fg-muted: #6B6764; --rule: rgba(35,35,35,.16);  --accent: var(--bb-orange); --accent-ink: var(--orange-ink); --focus: var(--bb-purple); }
+/* --accent-ink escurece um degrau no paper: #B85214 dá 4,85:1 sobre #FFFDF6
+   mas só 4,41:1 sobre #F5F2EA, abaixo do mínimo para os 11px do .idx. */
+.surface-paper  { --bg: var(--paper);     --fg: var(--bb-dark);  --fg-muted: #6B6764; --rule: rgba(35,35,35,.16);  --accent: var(--bb-orange); --accent-ink: #A8490F;          --focus: var(--bb-purple); }
 .surface-dark   { --bg: var(--bb-dark);   --fg: var(--bb-white); --fg-muted: #9A9691; --rule: rgba(255,253,246,.18);--accent: var(--bb-orange); --accent-ink: var(--bb-orange); --focus: var(--bb-orange); }
 .surface-purple { --bg: var(--bb-purple); --fg: var(--bb-white); --fg-muted: #D8BCC5; --rule: rgba(255,253,246,.28);--accent: var(--bb-orange); --accent-ink: var(--orange-20); --focus: var(--bb-white); }
 
@@ -178,8 +180,10 @@ body {
 .display--statement { font-size: var(--fs-statement); text-wrap: nowrap; }
 .display--hero      { font-size: var(--fs-hero); }
 .display--cta       { font-size: var(--fs-cta); }
+/* Sem variante laranja de ênfase em superfície clara: #F2853E sobre #FFFDF6 dá
+   2,52:1 e reprova até no limiar de texto grande. Em faixa escura o laranja
+   passa (6,14:1) e é a regra abaixo que cuida disso. */
 .display em { font-style: normal; color: var(--bb-purple); }
-.display .o  { color: var(--bb-orange); }
 .surface-dark   .display em,
 .surface-purple .display em { color: var(--bb-orange); }
 
@@ -202,7 +206,7 @@ body {
 
 /* Link com sublinhado que revela via clip-path (não anima layout) */
 .link {
-  display: inline-flex; align-items: center; gap: .625rem;
+  display: inline-flex; align-items: center; gap: .75rem;
   position: relative;
   text-decoration: none;
   padding-block: .25rem;
@@ -233,7 +237,7 @@ body {
 /* Botão ghost com borda (raio 0 — regra do reference lock) */
 .btn {
   display: inline-flex; align-items: center; gap: .75rem;
-  padding: .9375rem 1.5rem;
+  padding: 1rem 1.5rem;
   border: 1px solid currentColor;
   background: transparent;
   font-size: var(--fs-label);
@@ -334,26 +338,26 @@ body {
   max-width: min(100%, 46ch);
 }
 
-.hero__scroll {
-  position: absolute; right: clamp(.75rem, 1.6vw, 1.5rem);
-  bottom: clamp(1.75rem, 3vw, 2.5rem);
-  writing-mode: vertical-rl;
-  color: var(--bb-white);
-  z-index: 3;
-  opacity: .85;
-}
-
 /* ============================================================== colunas */
 .cols {
   display: grid;
   gap: var(--gap);
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
 }
-.cols--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+/* 23rem (e não 13rem): abaixo disso as duas colunas sobrevivem até ~490px de
+   viewport e a medida cai para 34 caracteres por linha entre 560 e 830px.
+   Com 23rem o colapso para uma coluna acontece em ~854px e nada muda em ≥900px. */
+.cols--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr)); }
+/* Colapsado em uma coluna o texto herda a largura inteira e a linha passa de 80
+   caracteres. Em duas colunas a track já é menor que 62ch, então isto não morde. */
+.cols--2 .lead { max-width: 62ch; }
 
-/* Colunas separadas por filete vertical */
+/* Colunas separadas por filete vertical. Todas levam o mesmo recuo e o grupo é
+   puxado para fora, senão a primeira coluna fica um --gap mais larga que as
+   irmãs — 301px contra 264px na home, em cards anunciados como iguais. */
 .cols--ruled > * { padding-left: var(--gap); border-left: 1px solid var(--rule); }
-.cols--ruled > :first-child { padding-left: 0; border-left: 0; }
+.cols--ruled > :first-child { border-left: 0; }
+@media (min-width: 48em) { .cols--ruled { margin-left: calc(var(--gap) * -1); } }
 
 /* Bloco de pilar numerado (What We Build) */
 .pillar { display: flex; flex-direction: column; gap: .875rem; }
@@ -456,12 +460,17 @@ body {
 .field label {
   font-size: var(--fs-label); font-weight: 500;
   letter-spacing: var(--tr-label); text-transform: uppercase;
+  line-height: 1.4;                       /* mesmo lh de .label — sem isso as
+                                             baselines das duas colunas de
+                                             contact.html ficam 1,5px fora */
   color: var(--fg-muted);
 }
+/* A borda é a única indicação de que existe um campo: com --rule ela dá 1,32:1
+   sobre o off-white, bem abaixo do mínimo de 3:1 para limite de componente. */
 .field input, .field textarea {
   width: 100%;
   background: transparent;
-  border: 0; border-bottom: 1px solid var(--rule);
+  border: 0; border-bottom: 1px solid var(--fg-muted);
   border-radius: 0;                       /* iOS arredonda inputs por padrão */
   padding: .625rem 0;
   color: var(--fg);
@@ -471,7 +480,7 @@ body {
 /* Sem mexer no outline: o :focus-visible global continua valendo. */
 .field input:focus, .field textarea:focus { border-bottom-color: var(--accent); }
 @media (hover: hover) and (pointer: fine) {
-  .field input:hover, .field textarea:hover { border-bottom-color: var(--fg-muted); }
+  .field input:hover, .field textarea:hover { border-bottom-color: var(--fg); }
 }
 /* O Chrome pinta o fundo do autofill de branco — sobre a faixa bordô isso quebra. */
 .field input:-webkit-autofill,
@@ -523,11 +532,22 @@ body {
     border-bottom: 1px solid rgba(35,35,35,.14);
     padding: .5rem var(--gutter) 1.5rem;
     clip-path: inset(0 0 100% 0);
-    transition: clip-path 300ms var(--ease-out);
+    /* visibility, e não só clip-path: recortado o menu some da tela mas os 5
+       links continuam recebendo Tab, mandando o foco para trás do conteúdo.
+       O delay de 300ms segura a visibilidade até a animação de fechar terminar. */
+    visibility: hidden;
+    transition: clip-path 300ms var(--ease-out), visibility 0s linear 300ms;
   }
-  .nav[data-open='true'] { clip-path: inset(0 0 0 0); }
+  .nav[data-open='true'] {
+    clip-path: inset(0 0 0 0);
+    visibility: visible;
+    transition: clip-path 300ms var(--ease-out), visibility 0s;
+  }
   .nav a { width: 100%; padding-block: .875rem; font-size: var(--fs-sm); letter-spacing: .12em; border-bottom: 1px solid rgba(35,35,35,.1); }
+  /* O sublinhado de página atual é feito com ::after, que some aqui — sem isto
+     o menu mobile fica sem nenhuma indicação de onde o usuário está. */
   .nav a::after { display: none; }
+  .nav a[aria-current='page'] { color: var(--accent-ink); }
   .nav a.btn--nav {
     border: 1px solid currentColor;
     justify-content: center;
@@ -545,7 +565,7 @@ body {
      do flex e a coluna encolheria para a largura do conteúdo. */
   .hero > .wrap { display: block; flex: none; width: 100%; }
   .hero__text { gap: 2rem; padding-block: 2.5rem 2.75rem; }
-  .hero__scroll { display: none; }
+  .cols--ruled { margin-left: 0; }
 
   .footer__top { grid-template-columns: 1fr; }
   .cols--ruled > * { padding-left: 0; border-left: 0; padding-top: 1.5rem; border-top: 1px solid var(--rule); }

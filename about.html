@@ -45,7 +45,7 @@
   <!-- ---------------------------------------------------------- hero -- -->
   <section class="section surface-light" aria-labelledby="pg-title">
     <div class="wrap">
-      <p class="idx" data-reveal>Quem Somos</p>
+      <p class="label label--muted" data-reveal style="margin-bottom:clamp(1.5rem,2.8vw,2.5rem)">Quem Somos</p>
       <h1 class="display" id="pg-title" data-reveal>Somos a ponte entre<br>marca, percepção e <em>resultado.</em></h1>
       <div class="indent" style="max-width:52ch;margin-top:clamp(1.5rem,3vw,2.5rem);display:grid;gap:1.25rem">
         <p class="lead" data-reveal>
@@ -54,9 +54,8 @@
           consistência e valor percebido.
         </p>
         <p class="lead" data-reveal>
-          Aqui, a marca não é tratada como aparência: é <em style="font-style:normal;color:var(--bb-purple)">direção</em>,
-          é <em style="font-style:normal;color:var(--bb-purple)">reputação</em> e
-          <em style="font-style:normal;color:var(--bb-purple)">estratégia</em> para construir presença,
+          Aqui, a marca não é tratada como aparência: é <strong>direção</strong>,
+          é <strong>reputação</strong> e <strong>estratégia</strong> para construir presença,
           gerar confiança e sustentar crescimento com resultado duradouro.
         </p>
         <p data-reveal style="margin-top:.75rem">
@@ -68,9 +67,8 @@
     </div>
   </section>
 
-  <hr class="rule">
-
-  <!-- --------------------------------------------------- por que bridge -- -->
+  <!-- Sem hr aqui: a troca para a faixa escura já é a fronteira mais forte
+       possível, e o filete de rgba(35,35,35,.14) some contra o preto. -->
   <section class="section surface-dark" aria-labelledby="why-title">
     <div class="wrap">
       <p class="idx" data-reveal>01.</p>
@@ -78,7 +76,7 @@
       <div class="cols cols--2" style="gap:clamp(2rem,5vw,4.5rem);align-items:start">
         <div data-reveal>
           <p class="lead" style="margin-bottom:1.5rem">Porque toda marca precisa atravessar uma distância:</p>
-          <ul style="display:grid;gap:1rem">
+          <ul role="list" style="display:grid;gap:1rem">
             <li class="lead muted">Entre o que ela é e o que o mercado percebe.</li>
             <li class="lead muted">Entre a intenção do negócio e a experiência do cliente.</li>
             <li class="lead muted">Entre uma boa entrega e o valor que as pessoas reconhecem nela.</li>
@@ -108,7 +106,6 @@
       <p class="idx" data-reveal>02.</p>
       <div class="cols cols--2" style="gap:clamp(2rem,5vw,4.5rem);align-items:center">
         <div>
-          <p class="label label--muted" data-reveal style="margin-bottom:1rem">A ponte — o conceito base</p>
           <h2 class="display" id="concept-title" data-reveal style="margin-bottom:1.75rem">
             Comunicação é a ponte entre<br>valor e <em>percepção.</em>
           </h2>
@@ -156,7 +153,9 @@
           estruturar comunicação, fortalecer autoridade ou preparar o negócio para crescer.
         </p>
       </div>
-      <blockquote data-reveal style="margin-top:clamp(2.5rem,5vw,3.5rem);border-left:2px solid var(--bb-orange);padding-left:clamp(1.25rem,2.5vw,2rem)">
+      <!-- Sem trilho: o salto de 17px para 28px já isola a frase, e um filete
+           laranja de 2px não existe em nenhum outro lugar do sistema. -->
+      <blockquote data-reveal style="margin-top:clamp(2.5rem,5vw,3.5rem)">
         <p class="display" style="max-width:24ch">Toda marca tem uma essência.<br>A diferença está em quem sabe <em>expressá-la.</em></p>
       </blockquote>
     </div>
@@ -167,7 +166,10 @@
     <div class="wrap">
       <p class="idx" data-reveal>04.</p>
       <h2 class="display" id="hub-title" data-reveal>Um hub para conectar<br>estratégia e <em>execução.</em></h2>
-      <div class="cols cols--ruled" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
+      <!-- Prosa sequencial ("Depois de…", "Assim,…") não vai em colunas com
+           filete: o filete afirma paralelismo. Em 3 colunas a linha ficava com
+           22 caracteres entre 850 e 1150px. -->
+      <div class="indent" style="margin-top:clamp(2.5rem,5vw,3.5rem);max-width:58ch;display:grid;gap:1.25rem">
         <p class="lead" data-reveal>
           A Bridge Bizz Hub não funciona como uma agência tradicional. Funcionamos como um
           núcleo estratégico que diagnostica, direciona e conecta.

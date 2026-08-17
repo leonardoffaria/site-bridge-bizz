@@ -51,11 +51,10 @@
     <div class="wrap">
       <div class="hero__text">
         <h1 class="display display--hero" id="hero-title" data-reveal>
-          Creativity<br>Doesn’t<br>Need<br><span class="o">Complexity.</span>
+          Creativity<br>Doesn’t<br>Need<br><em>Complexity.</em>
         </h1>
       </div>
     </div>
-    <p class="hero__scroll label" aria-hidden="true">Scroll</p>
   </section>
 
   <!-- Subtítulo e texto de apoio ficam fora do hero: o canto inferior esquerdo
@@ -80,7 +79,9 @@
     <div class="wrap">
       <p class="idx" data-reveal>01.</p>
       <h2 class="display display--statement" id="bridge-title" data-reveal>We’re the <em>Bridge.</em></h2>
-      <div class="cols cols--2 cols--ruled indent" style="margin-top:clamp(1.75rem,3vw,2.5rem);max-width:38rem">
+      <!-- Bloco único, não duas colunas com filete: o filete afirma itens
+           coordenados, e a 768px cada coluna dava 34 caracteres por linha. -->
+      <div class="indent" style="margin-top:clamp(1.75rem,3vw,2.5rem);max-width:52ch;display:grid;gap:1.25rem">
         <p class="lead" data-reveal>Somos um hub de inteligência estratégica em marca, posicionamento e comunicação.</p>
         <p class="lead" data-reveal>Conectamos essência, narrativa e presença para construir marcas mais claras, relevantes e percebidas pelo valor que entregam.</p>
       </div>
@@ -99,31 +100,32 @@
           <p class="pillar__n">01</p>
           <h3 class="h3">Posicionamento de Marca</h3>
           <p class="pillar__body">Definimos território, público, diferenciais e narrativa para marcas que precisam de clareza, direção e relevância no mercado.</p>
-          <a class="link" href="metodologia.html" aria-label="Conheça nossa atuação em Posicionamento de Marca"><span class="arrow" aria-hidden="true">&#8594;</span></a>
         </article>
 
         <article class="pillar" data-reveal>
           <p class="pillar__n">02</p>
           <h3 class="h3">Branding Estratégico</h3>
           <p class="pillar__body">Construímos identidades de marca sólidas, coerentes e flexíveis, alinhadas à visão do negócio e à percepção de valor.</p>
-          <a class="link" href="metodologia.html" aria-label="Conheça nossa atuação em Branding Estratégico"><span class="arrow" aria-hidden="true">&#8594;</span></a>
         </article>
 
         <article class="pillar" data-reveal>
           <p class="pillar__n">03</p>
           <h3 class="h3">Estratégia de Marca</h3>
           <p class="pillar__body">Desenvolvemos planos que conectam marca, negócio, comunicação e crescimento com método, intenção e consistência.</p>
-          <a class="link" href="metodologia.html" aria-label="Conheça nossa atuação em Estratégia de Marca"><span class="arrow" aria-hidden="true">&#8594;</span></a>
         </article>
 
         <article class="pillar" data-reveal>
           <p class="pillar__n">04</p>
           <h3 class="h3">Comunicação Estratégica</h3>
           <p class="pillar__body">Transformamos estratégia em mensagens, conteúdos e experiências que fortalecem presença, autoridade e conexão com o público.</p>
-          <a class="link" href="metodologia.html" aria-label="Conheça nossa atuação em Comunicação Estratégica"><span class="arrow" aria-hidden="true">&#8594;</span></a>
         </article>
 
       </div>
+      <!-- Um destino real com nome visível, no lugar de 4 setas nuas que
+           prometiam 4 destinos diferentes e iam todas para a mesma página. -->
+      <p data-reveal style="margin-top:clamp(2rem,4vw,3rem)">
+        <a class="link link--label" href="metodologia.html"><span>Ver metodologia e serviços</span><span class="arrow" aria-hidden="true">&#8594;</span></a>
+      </p>
     </div>
   </section>
 
