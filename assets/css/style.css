@@ -370,7 +370,8 @@ body {
 .steps > li:last-child { border-bottom: 1px solid var(--rule); }
 @media (min-width: 48em) {
   .steps > li {
-    grid-template-columns: 3.5rem minmax(0, 16rem) minmax(0, 1fr);
+    /* 3ª coluna travada em 32rem: solta em 1fr a linha passava de 130 caracteres */
+    grid-template-columns: 3.5rem minmax(0, 16rem) minmax(0, 32rem);
     gap: var(--gap);
     align-items: baseline;
   }
@@ -540,7 +541,9 @@ body {
   .display--statement { text-wrap: balance; }
   .hero { min-height: 0; flex-direction: column-reverse; }
   .hero__media { position: static; clip-path: none; aspect-ratio: 16 / 10; }
-  .hero > .wrap { display: block; flex: none; }
+  /* width:100% é obrigatório: o `margin-inline:auto` do .wrap cancela o stretch
+     do flex e a coluna encolheria para a largura do conteúdo. */
+  .hero > .wrap { display: block; flex: none; width: 100%; }
   .hero__text { gap: 2rem; padding-block: 2.5rem 2.75rem; }
   .hero__scroll { display: none; }
 
