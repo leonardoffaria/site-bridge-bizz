@@ -56,10 +56,12 @@ ul, ol { list-style: none; padding: 0; }
      uma única declaração gigante (seção 01) e todo o resto pequeno.        */
   /* Recalibrado para caixa-alta: a 12.4vw / 178px o statement em nowrap
      media 1567px de tinta e estourava a viewport em 1440. */
-  --fs-statement: clamp(2.5rem, 10vw, 9rem);          /* 40 → 144px  seção 01 */
-  --fs-hero:      clamp(2.25rem, 6.39vw, 5.75rem);    /* 36 →  92px  h1 */
-  --fs-cta:       clamp(2rem, 4.31vw, 3.875rem);      /* 32 →  62px  CTA */
-  --fs-display:   clamp(1.75rem, 3.47vw, 3.125rem);   /* 28 →  50px  seções 02/03 */
+  --fs-statement: clamp(2.25rem, 8.7vw, 7.8rem);      /* 36 → 125px */
+  --fs-hero:      clamp(2rem, 3.95vw, 3.55rem);       /* 32 →  57px  h1 — cap-height
+                                                          medido em 2,8% da largura
+                                                          nos DOIS mockups */
+  --fs-cta:       clamp(1.75rem, 3.4vw, 3.05rem);     /* 28 →  49px  CTA */
+  --fs-display:   clamp(1.5rem, 2.85vw, 2.55rem);     /* 24 →  41px  seções */
   --fs-h3:      clamp(1.125rem, 1.6vw, 1.5rem);
   --fs-lead:    clamp(1.0625rem, 1.15vw, 1.25rem);
   --fs-body:    1rem;
@@ -80,8 +82,11 @@ ul, ol { list-style: none; padding: 0; }
   --radius-pill:  999px;
 
   /* Layout */
-  --maxw:      1440px;
-  --gutter:    clamp(1.25rem, 4.4vw, 5rem);      /* 63px a 1440 (ref: 4.4%) */
+  --maxw:      1600px;
+  /* 10vw: os dois mockups têm 10% de margem de cada lado (medido em 191 e 284
+     linhas de amostra). O 4,4% anterior deixava o conteúdo ocupando 91% da
+     página — era isso o "está wide". */
+  --gutter:    clamp(1.25rem, 10vw, 11.25rem);   /* 144px a 1440 */
   --section-y: clamp(2.5rem, 4.03vw, 3.625rem);  /* 58px a 1440 (ref) */
   --gap:       clamp(1.5rem, 2.5vw, 2.5rem);
   --header-h:  clamp(62px, 6.9vw, 99px);         /* 99px a 1440 (ref) */
@@ -192,6 +197,7 @@ body {
 }
 .display--statement { font-size: var(--fs-statement); text-wrap: nowrap; }
 .display--hero      { font-size: var(--fs-hero); }
+h1.display          { font-size: var(--fs-hero); }
 .display--cta       { font-size: var(--fs-cta); }
 /* Sem variante laranja de ênfase em superfície clara: #F2853E sobre #FFFDF6 dá
    2,52:1 e reprova até no limiar de texto grande. Em faixa escura o laranja
@@ -438,9 +444,20 @@ body {
 .card .h3 { color: var(--accent); }
 .card__body { color: var(--fg-muted); font-size: var(--fs-sm); line-height: 1.6; }
 
-/* Linha do tempo das três distâncias ("Por que Bridge?") */
+/* Utilidades do mockup: bloco centralizado e mídia que sangra até a borda.
+   A sangria soma o gutter e, quando o wrap já está capado em --maxw, também a
+   margem externa que sobra da viewport. */
+.center { text-align: center; margin-inline: auto; }
+.bleed-right {
+  margin-right: calc(-1 * (var(--gutter) + max(0px, (100vw - var(--maxw)) / 2)));
+  border-radius: var(--radius-media) 0 0 var(--radius-media);
+  overflow: clip;
+}
+
+/* Linha do tempo das três distâncias ("Por que Bridge?") — rótulos em laranja */
 .timeline { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; text-align: center; }
-.timeline > li { position: relative; padding: 2.5rem clamp(.5rem, 1.5vw, 1.25rem) 0; }
+.timeline > li { position: relative; padding: 2.5rem clamp(.5rem, 1.5vw, 1.25rem) 0;
+                 color: var(--accent); font-size: var(--fs-sm); line-height: 1.45; }
 .timeline > li::before {
   content: ''; position: absolute; left: 0; right: 0; top: .5625rem;
   border-top: 1px solid var(--accent);
@@ -460,10 +477,74 @@ body {
   .timeline > li::after { left: 0; top: 50%; transform: translateY(-50%); width: 1.125rem; height: 1.125rem; }
 }
 
-/* Grifo — o realce de marca-texto que o mockup usa nas frases de impacto */
+/* Grifo — o realce de marca-texto das frases de impacto. No mockup a frase
+   grifada é CAIXA BAIXA: só os títulos de seção são caixa-alta. */
 .mark {
   background: var(--orange-20); color: var(--bb-dark);
   padding: .1em .35em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+
+/* Declaração em caixa baixa — o bloco de texto grande que não é título de seção
+   (o "A Bridge Bizz Hub não funciona como uma agência tradicional…" do hub). */
+.statement {
+  font-size: var(--fs-display);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+.statement em { font-style: normal; font-weight: 600; color: var(--bb-purple); }
+.surface-dark .statement em, .surface-purple .statement em { color: var(--accent); }
+
+/* Duas colunas separadas por filete vertical (hub e painel de parceiros) */
+.split { display: grid; gap: var(--gap); align-items: start; }
+@media (min-width: 56em) {
+  .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .split > :nth-child(2) { padding-left: var(--gap); border-left: 1px solid var(--rule); }
+}
+
+/* Nosso time — mídia arredondada com legenda embaixo */
+.team { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+.team figure { display: grid; gap: .75rem; }
+.team .team__media {
+  aspect-ratio: 1.12; border-radius: var(--radius-media);
+  background: var(--bb-dark); overflow: clip;
+}
+.team .team__media img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+.team figcaption { font-size: var(--fs-sm); line-height: 1.45; }
+.team figcaption b { display: block; font-weight: 500; color: var(--bb-purple); }
+
+/* Fluxo vertical de três círculos com seta — diagnóstico → direção → conexão.
+   A seta é ::after do próprio passo: como <li> irmão ela entrava na contagem do
+   nth-child e os círculos 2 e 3 ficavam sem preenchimento. */
+.flow { display: grid; gap: 0; --bola: clamp(3.25rem, 4.6vw, 4.25rem); }
+.flow > li {
+  display: grid; grid-template-columns: var(--bola) minmax(0, 1fr);
+  gap: var(--gap); align-items: center;
+}
+.flow > li::before {
+  content: ''; grid-column: 1;
+  width: var(--bola); aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid var(--bb-purple);
+  background: linear-gradient(to top, var(--bb-purple) var(--fill), transparent var(--fill));
+}
+.flow > li:nth-child(1) { --fill: 0%; }
+.flow > li:nth-child(2) { --fill: 50%; }
+.flow > li:nth-child(3) { --fill: 100%; }
+.flow > li:not(:last-child)::after {
+  content: '\2193'; grid-column: 1; justify-self: center;
+  color: var(--accent); font-size: 1.375rem; line-height: 1;
+  padding-block: .75rem;
+}
+.flow h3 { color: var(--accent-ink); font-size: var(--fs-sm); font-weight: 500;
+           letter-spacing: var(--tr-label); text-transform: uppercase; margin-bottom: .25rem; }
+.surface-dark .flow h3 { color: var(--accent); }
+.flow p { color: var(--fg-muted); font-size: var(--fs-sm); line-height: 1.5; }
+
+/* Painel — caixa arredondada recuada das margens, não faixa de sangria */
+.panel {
+  border-radius: clamp(1rem, 1.7vw, 1.5rem);
+  padding: clamp(1.75rem, 3.4vw, 3rem);
 }
 
 /* Mídia de conteúdo arredondada (mockup). Fora: logo, hero de sangria e a
