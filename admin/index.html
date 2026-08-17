@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>CMS — Bridge Bizz Hub</title>
+<link rel="icon" href="../assets/logo/icon-dark.svg">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="surface-light">
+
+<!-- PREENCHER: URL e chave anon do projeto Supabase (a mesma das páginas). -->
+<script>window.BB_CMS = { url: "", anon: "" };</script>
+
+<!-- entrada ------------------------------------------------------------- -->
+<section id="login" class="login" hidden>
+  <form class="form" id="form-login">
+    <img src="../assets/logo/lockup-dark.svg" alt="Bridge Bizz" style="height:40px;margin-bottom:2rem">
+    <h1 class="display" style="font-size:1.75rem;margin-bottom:.5rem">Entrar no CMS</h1>
+    <p class="small muted" style="margin-bottom:1.5rem">Você recebe um link de acesso por e-mail. Não tem senha.</p>
+    <p class="field">
+      <label for="li-email">Seu e-mail</label>
+      <input id="li-email" type="email" autocomplete="email" required>
+    </p>
+    <button class="btn" type="submit">Enviar link de acesso</button>
+    <p class="form__aviso" id="login-aviso" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+<!-- aplicação ------------------------------------------------------------ -->
+<div id="app" hidden>
+  <header class="adm-top">
+    <div class="adm-top__marca">
+      <img src="../assets/logo/icon-dark.svg" alt="" style="height:22px">
+      <strong>CMS</strong>
+    </div>
+    <nav class="adm-abas" id="abas">
+      <button data-aba="paginas" class="is-ativa">Páginas</button>
+      <button data-aba="blog">Blog</button>
+      <button data-aba="mensagens">Mensagens <span class="badge" id="badge-msg" hidden></span></button>
+      <button data-aba="usuarios">Usuários</button>
+    </nav>
+    <div class="adm-top__user">
+      <span class="small muted" id="quem"></span>
+      <button class="btn btn--fantasma" id="sair">Sair</button>
+    </div>
+  </header>
+
+  <main class="adm-main">
+    <!-- ------------------------------------------------------- páginas -- -->
+    <section data-painel="paginas">
+      <div class="adm-cab">
+        <div>
+          <h2 class="h3">Texto e imagens das páginas</h2>
+          <p class="small muted">O que estiver em branco continua com o texto atual do site.</p>
+        </div>
+        <div class="adm-cab__acoes">
+          <select id="sel-pagina" aria-label="Página"></select>
+          <button class="btn" id="salvar-pagina">Salvar página</button>
+        </div>
+      </div>
+      <div id="campos" class="adm-campos"></div>
+    </section>
+
+    <!-- ---------------------------------------------------------- blog -- -->
+    <section data-painel="blog" hidden>
+      <div class="adm-cab">
+        <div><h2 class="h3">Blog</h2><p class="small muted">The Bridge Journal</p></div>
+        <button class="btn" id="post-novo">Novo post</button>
+      </div>
+      <div class="adm-split">
+        <ul class="adm-lista" id="lista-posts"></ul>
+        <form class="form" id="form-post" hidden>
+          <p class="field"><label for="po-titulo">Título</label><input id="po-titulo" required></p>
+          <p class="field"><label for="po-slug">Endereço (slug)</label><input id="po-slug" required pattern="[a-z0-9-]+"></p>
+          <p class="field"><label for="po-resumo">Resumo</label><textarea id="po-resumo" rows="2"></textarea></p>
+          <p class="field"><label for="po-capa">Imagem de capa</label><input id="po-capa" type="file" accept="image/*"></p>
+          <p class="field"><label for="po-corpo">Texto <span class="muted">(markdown)</span></label><textarea id="po-corpo" rows="16"></textarea></p>
+          <p class="field field--check"><label><input id="po-publicado" type="checkbox"> Publicado</label></p>
+          <div class="adm-acoes">
+            <button class="btn" type="submit">Salvar post</button>
+            <button class="btn btn--fantasma" type="button" id="post-apagar">Apagar</button>
+          </div>
+          <p class="form__aviso" id="post-aviso" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------- mensagens -- -->
+    <section data-painel="mensagens" hidden>
+      <div class="adm-cab">
+        <div><h2 class="h3">Mensagens do formulário</h2><p class="small muted" id="msg-contagem"></p></div>
+        <button class="btn btn--fantasma" id="msg-csv">Baixar CSV</button>
+      </div>
+      <div id="lista-msg" class="adm-msgs"></div>
+    </section>
+
+    <!-- ------------------------------------------------------ usuários -- -->
+    <section data-painel="usuarios" hidden>
+      <div class="adm-cab">
+        <div>
+          <h2 class="h3">Quem acessa o CMS</h2>
+          <p class="small muted">A pessoa entra pelo e-mail cadastrado aqui, sem senha.</p>
+        </div>
+      </div>
+      <form class="form form--linha" id="form-membro">
+        <p class="field"><label for="me-nome">Nome</label><input id="me-nome" required></p>
+        <p class="field"><label for="me-email">E-mail</label><input id="me-email" type="email" required></p>
+        <p class="field"><label for="me-papel">Papel</label>
+          <select id="me-papel"><option value="editor">Editor</option><option value="admin">Admin</option></select></p>
+        <button class="btn" type="submit">Adicionar</button>
+      </form>
+      <p class="form__aviso" id="membro-aviso" role="status" aria-live="polite"></p>
+      <ul class="adm-lista" id="lista-membros"></ul>
+    </section>
+  </main>
+</div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>

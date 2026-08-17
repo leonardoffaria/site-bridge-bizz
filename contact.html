@@ -43,9 +43,9 @@
 <main id="main">
   <section class="section surface-light" id="diagnostico" aria-labelledby="ct-title">
     <div class="wrap">
-      <p class="label label--muted" data-reveal style="margin-bottom:clamp(1.5rem,2.8vw,2.5rem)">Contato</p>
-      <h1 class="display" id="ct-title" data-reveal>Vamos construir<br>a sua <em>ponte</em></h1>
-      <p class="lead indent" data-reveal style="margin-top:clamp(1.5rem,3vw,2.5rem);max-width:48ch">
+      <p class="label label--muted" data-reveal style="margin-bottom:clamp(1.5rem,2.8vw,2.5rem)" data-cms="s1.p1">Contato</p>
+      <h1 class="display" id="ct-title" data-reveal data-cms="s1.h11">Vamos construir<br>a sua <em>ponte</em></h1>
+      <p class="lead indent" data-reveal style="margin-top:clamp(1.5rem,3vw,2.5rem);max-width:48ch" data-cms="s1.p2">
         Tem uma marca, negócio ou ideia pronta para crescer? Fale com a gente e vamos
         juntos construir uma estratégia de marca com direção, consistência, valor e resultado!
       </p>
@@ -61,46 +61,56 @@
         <!-- PREENCHER: definir o endpoint do formulário (Formspree, Basin, Vercel Function…).
              Sem `action`, o envio não sai do navegador. -->
         <form class="form" method="post" data-reveal>
-          <p class="field">
+          <p class="field" data-cms="s2.p1">
             <label for="f-nome">Nome completo</label>
             <input id="f-nome" name="nome" type="text" autocomplete="name" required>
           </p>
-          <p class="field">
+          <p class="field" data-cms="s2.p2">
             <label for="f-email">E-mail</label>
             <input id="f-email" name="email" type="email" autocomplete="email" required>
           </p>
-          <p class="field">
+          <p class="field" data-cms="s2.p3">
             <label for="f-contato">Contato principal</label>
             <input id="f-contato" name="contato" type="tel" autocomplete="tel" required>
           </p>
-          <p class="field">
+          <p class="field" data-cms="s2.p4">
             <label for="f-empresa">Nome da empresa ou marca</label>
             <input id="f-empresa" name="empresa" type="text" autocomplete="organization" required>
           </p>
-          <p class="field">
+          <p class="field" data-cms="s2.p5">
             <label for="f-site">Site ou Instagram da marca <span class="muted">(se já tiver)</span></label>
             <input id="f-site" name="site" type="text" autocomplete="url">
           </p>
-          <p class="field">
+          <p class="field" data-cms="s2.p6">
             <label for="f-cargo">Qual é o seu cargo ou papel no negócio?</label>
             <input id="f-cargo" name="cargo" type="text" autocomplete="organization-title" required>
           </p>
-          <button class="btn" type="submit">Enviar</button>
+          <p class="field" hidden aria-hidden="true">
+            <label for="f-gotcha-contact">Não preencha</label>
+            <input id="f-gotcha-contact" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </p>
+          <p class="field field--check">
+            <label><input name="consentimento" type="checkbox" required>
+              Autorizo a Bridge Bizz Hub a usar estes dados para retornar o contato.
+              <a href="privacidade.html">Política de privacidade</a>.</label>
+          </p>
+          <p class="form__aviso" data-form-aviso role="status" aria-live="polite"></p>
+          <button class="btn" type="submit">Enviar<span class="arrow" aria-hidden="true">&#8594;</span></button>
         </form>
 
         <!-- PREENCHER: e-mail, telefone e URLs das redes — não vieram no documento de copy. -->
         <div class="footer__col" style="gap:2rem" data-reveal>
           <div>
-            <p class="label label--muted" style="margin-bottom:.625rem">Base</p>
-            <p>São Paulo, Brasil</p>
+            <p class="label label--muted" style="margin-bottom:.625rem" data-cms="s2.p7">Base</p>
+            <p data-cms="s2.p8">São Paulo, Brasil</p>
           </div>
           <div>
-            <p class="label label--muted" style="margin-bottom:.625rem">Resposta</p>
-            <p class="muted">Retornamos em até dois dias úteis.</p>
+            <p class="label label--muted" style="margin-bottom:.625rem" data-cms="s2.p9">Resposta</p>
+            <p class="muted" data-cms="s2.p10">Retornamos em até dois dias úteis.</p>
           </div>
           <div>
-            <p class="label label--muted" style="margin-bottom:.625rem">Para parceiros</p>
-            <p class="muted" style="max-width:34ch">Se você é profissional, especialista ou agência, use o mesmo formulário indicando seu papel no campo de cargo.</p>
+            <p class="label label--muted" style="margin-bottom:.625rem" data-cms="s2.p11">Para parceiros</p>
+            <p class="muted" style="max-width:34ch" data-cms="s2.p12">Se você é profissional, especialista ou agência, use o mesmo formulário indicando seu papel no campo de cargo.</p>
           </div>
         </div>
 
@@ -138,6 +148,8 @@
 </footer>
 <!-- ========== /SHARED: footer ========== -->
 
+<script>window.BB_CMS={url:"",anon:""}; /* PREENCHER: URL e chave anon do projeto Supabase */</script>
+<script src="assets/js/cms.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>

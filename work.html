@@ -43,9 +43,9 @@
 <main id="main">
   <section class="section surface-light" aria-labelledby="pg-title">
     <div class="wrap">
-      <p class="label label--muted" data-reveal style="margin-bottom:clamp(1.5rem,2.8vw,2.5rem)">Projetos</p>
-      <h1 class="display" id="pg-title" data-reveal>Projetos <em>desenvolvidos</em></h1>
-      <p class="lead indent" data-reveal style="margin-top:clamp(1.5rem,3vw,2.5rem);max-width:48ch">
+      <p class="label label--muted" data-reveal style="margin-bottom:clamp(1.5rem,2.8vw,2.5rem)" data-cms="s1.p1">Projetos</p>
+      <h1 class="display" id="pg-title" data-reveal data-cms="s1.h11">Projetos <em>desenvolvidos</em></h1>
+      <p class="lead indent" data-reveal style="margin-top:clamp(1.5rem,3vw,2.5rem);max-width:48ch" data-cms="s1.p2">
         Cada projeto começa pelo mesmo lugar: entender a essência antes de desenhar a
         expressão. Os cases estão em preparação e serão publicados aqui.
       </p>
@@ -60,12 +60,12 @@
   <section class="cta surface-purple" aria-labelledby="cta-title">
     <div class="wrap">
       <div class="cta__grid">
-        <h2 class="display display--cta" id="cta-title" data-reveal>Vamos construir<br>a sua <em>ponte</em></h2>
+        <h2 class="display display--cta" id="cta-title" data-reveal data-cms="s2.h21">Vamos construir<br>a sua <em>ponte</em></h2>
         <div data-reveal>
-          <p class="lead" style="margin-bottom:1.75rem;max-width:32ch">
+          <p class="lead" style="margin-bottom:1.75rem;max-width:32ch" data-cms="s2.p1">
             Tem uma marca, negócio ou ideia pronta para crescer? Fale com a gente.
           </p>
-          <a class="btn" href="contact.html">Começar diagnóstico</a>
+          <a class="btn" href="contact.html" data-cms="s2.a1">Começar diagnóstico</a>
         </div>
       </div>
     </div>
@@ -101,6 +101,8 @@
 </footer>
 <!-- ========== /SHARED: footer ========== -->
 
+<script>window.BB_CMS={url:"",anon:""}; /* PREENCHER: URL e chave anon do projeto Supabase */</script>
+<script src="assets/js/cms.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>

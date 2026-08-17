@@ -1,0 +1,76 @@
+/* CMS — reaproveita os tokens do site (style.css) e só adiciona o chrome do admin. */
+
+.login { min-height: 100dvh; display: grid; place-items: center; padding: 2rem; }
+.login .form { width: min(100%, 26rem); }
+
+.adm-top {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  padding: .75rem clamp(1rem, 3vw, 2rem);
+  background: var(--bb-white); border-bottom: 1px solid var(--rule);
+}
+.adm-top__marca { display: flex; align-items: center; gap: .5rem; }
+.adm-top__user { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
+
+.adm-abas { display: flex; gap: .25rem; flex-wrap: wrap; }
+.adm-abas button {
+  border: 0; background: transparent; cursor: pointer;
+  padding: .5rem .875rem; border-radius: var(--radius-pill);
+  font-size: var(--fs-sm); color: var(--fg-muted);
+}
+.adm-abas button.is-ativa { background: var(--bb-purple); color: var(--bb-white); }
+.badge {
+  display: inline-grid; place-items: center; min-width: 1.25rem; height: 1.25rem;
+  border-radius: var(--radius-pill); background: var(--bb-orange); color: var(--bb-dark);
+  font-size: .6875rem; font-weight: 600; padding-inline: .25rem;
+}
+
+.adm-main { padding: clamp(1rem, 3vw, 2rem); max-width: 68rem; margin-inline: auto; }
+.adm-cab { display: flex; align-items: end; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.adm-cab__acoes { display: flex; gap: .75rem; align-items: center; }
+.adm-cab__acoes select { padding: .5rem .75rem; border: 1px solid var(--rule); border-radius: 0; background: transparent; }
+.adm-acoes { display: flex; gap: .75rem; }
+
+.btn--fantasma { background: transparent; color: var(--fg); border-color: var(--rule); }
+.btn--fantasma:hover { background: var(--fg); color: var(--bg); }
+
+/* campos de conteúdo */
+.adm-campos { display: grid; gap: 1.25rem; }
+.adm-campo { display: grid; gap: .375rem; padding: 1rem; border: 1px solid var(--rule); }
+.adm-campo label { font-size: var(--fs-label); text-transform: uppercase; letter-spacing: var(--tr-label); color: var(--fg-muted); }
+.adm-campo code { text-transform: none; letter-spacing: 0; opacity: .7; }
+.adm-campo textarea, .adm-campo input[type=text] {
+  width: 100%; padding: .5rem .625rem; border: 1px solid var(--rule); background: transparent;
+  border-radius: 0; font-size: var(--fs-sm); line-height: 1.5; resize: vertical;
+}
+.adm-campo__atual { font-size: .75rem; color: var(--fg-muted); }
+.adm-campo__preview { max-height: 8rem; width: auto; border-radius: var(--radius-media); }
+
+/* listas */
+.adm-split { display: grid; gap: var(--gap); grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); align-items: start; }
+@media (max-width: 55em) { .adm-split { grid-template-columns: 1fr; } }
+.adm-lista { display: grid; gap: .5rem; }
+.adm-lista li { display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+                border: 1px solid var(--rule); padding: .75rem 1rem; }
+.adm-lista button[data-post] { border: 0; background: transparent; cursor: pointer; text-align: left; display: grid; gap: .125rem; width: 100%; }
+
+/* mensagens */
+.adm-msgs { display: grid; gap: 1rem; }
+.adm-msg { border: 1px solid var(--rule); padding: 1rem 1.25rem; display: grid; gap: .75rem; }
+.adm-msg.is-nova { border-left: 3px solid var(--bb-orange); }
+.adm-msg header { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.adm-msg dl { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: .25rem 1rem; font-size: var(--fs-sm); }
+.adm-msg dt { color: var(--fg-muted); }
+.adm-msg button { justify-self: start; }
+
+/* formulário em linha (adicionar membro) */
+.form--linha { grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); align-items: end; }
+.form--linha .btn { align-self: end; }
+
+/* avisos e checkbox — usados também no site público */
+.form__aviso { font-size: var(--fs-sm); min-height: 1.25rem; }
+.form__aviso[data-estado='ok']   { color: var(--bb-purple); }
+.form__aviso[data-estado='erro'] { color: #A8290F; }
+.field--check label { display: flex; gap: .625rem; align-items: start;
+                      font-size: var(--fs-sm); text-transform: none; letter-spacing: 0; color: inherit; }
+.field--check input { width: auto; margin-top: .2rem; }

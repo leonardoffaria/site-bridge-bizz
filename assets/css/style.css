@@ -662,6 +662,17 @@ h1.display          { font-size: var(--fs-hero); }
   caret-color: var(--fg);
 }
 .form .btn { justify-self: start; margin-top: .5rem; }
+/* Retorno do envio e consentimento LGPD */
+.form__aviso { font-size: var(--fs-sm); min-height: 1.25rem; }
+.form__aviso[data-estado='ok']   { color: var(--bb-purple); }
+.form__aviso[data-estado='erro'] { color: #A8290F; }
+.surface-purple .form__aviso[data-estado='ok'],
+.surface-purple .form__aviso[data-estado='erro'] { color: var(--bb-white); }
+.field--check label {
+  display: flex; gap: .625rem; align-items: start;
+  font-size: var(--fs-sm); text-transform: none; letter-spacing: 0; color: inherit;
+}
+.field--check input { width: auto; margin-top: .2rem; }
 
 /* Marcador de conteúdo pendente do cliente */
 .todo {
